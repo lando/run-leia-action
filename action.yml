@@ -85,7 +85,7 @@ runs:
           exit 11
         fi
     - name: Activate Lagoon Mode
-      if: ${{ runner.os == 'Linux' }} && ${{ inputs.lagoon-mode == 'true' }}
+      if: runner.os == 'Linux' && inputs.lagoon-mode == 'true'
       shell: bash
       run: |
         echo "::group::Activating Lagoon Mode"
