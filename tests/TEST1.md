@@ -1,6 +1,6 @@
 # TEST1
 
-## Testing
+## Test
 
 ```yaml
 # Should cat a file
