@@ -49,6 +49,12 @@ runs:
           echo "::error title=leia-test is not set!::You must specify a test file to parse and run."
           exit 10
         fi
+
+        if [ ! -f "${{ inputs.leia-test }}" ]; then
+          echo "::error title=Could not find ${{ inputs.leia-test }}!::${{ inputs.leia-test }} does not seem to exist."
+          exit 11
+        fi
+
     - name: Install node 16
       uses: actions/setup-node@v3
       with:

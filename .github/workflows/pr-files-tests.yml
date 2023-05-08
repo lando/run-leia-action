@@ -1,0 +1,26 @@
+name: PR OS Tests
+
+on:
+  pull_request:
+
+jobs:
+  run-leia-os-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+        leia-test:
+          - tests/TEST1.md
+          - tests/TEST2.md
+
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Run Leia Action
+        uses: ./
+        with:
+          leia-test: ${{ matrix.leia-test }}
