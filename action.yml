@@ -49,32 +49,22 @@ runs:
           echo "::error title=leia-test is not set!::You must specify a test file to parse and run."
           exit 10
         fi
-
     - name: Install node 16
       uses: actions/setup-node@v3
       with:
         node-version: 16
         cache: npm
-
+    - name: Add local bin to PATH
+      shell: bash
+      run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
     - name: Ensure Leia is installed
       shell: bash
       run: |
-        echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
-
         if ! leia --version >/dev/null; then
             echo "::group::Installing Leia @lando/leia@${{ inputs.version }}"
             npm install --global @lando/leia@${{ inputs.version }}
             echo "::endgroup::"
         fi
-
-
-
-    - name: Run Leia tests
-      shell: bash
-      run: |
-        echo "$PATH"
-        echo "$GITHUB_PATH"
-        ls -lsa "$GITHUB_WORKSPACE/node_modules/.bin"
 
         if leia --version >/dev/null; then
           echo "::notice title=Leia installed!::Using version $(leia --version) at $(which leia)"
@@ -82,4 +72,7 @@ runs:
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
+    - name: Run Leia tests
+      shell: bash
+      run: |
         leia ${{ inputs.leia-test }}
