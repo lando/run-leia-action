@@ -36,6 +36,9 @@ jobs:
             leia-test: ./tests/TEST5.md
 
           - os: windows-2022
+            shell: auto
+            leia-test: ./tests/TEST5.md
+          - os: windows-2022
             shell: bash
             leia-test: ./tests/TEST5.md
           - os: windows-2022
