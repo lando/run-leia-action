@@ -92,8 +92,8 @@ runs:
         fi
 
         leia ${{ inputs.leia-test }} \
-          --setup-header="${{ inputs.setup-header }}"" \
-          --test-header="${{ inputs.test-header }}"" \
-          --cleanup-header="${{ inputs.cleanup-header }}"" \
+          --setup-header="${{ inputs.setup-header }}" \
+          --test-header="${{ inputs.test-header }}" \
+          --cleanup-header="${{ inputs.cleanup-header }}" \
           --retry=${{ inputs.retry }} $OPTS
 
