@@ -2,21 +2,21 @@
 
 ## Sign
 
-```yaml
+```bash
 # Should create test file
 echo "hellothere" > kenobi.txt
 ```
 
 ## Seal
 
-```yaml
+```bash
 # Should cat the test file
 cat kenobi.txt
 ```
 
 ## Deliver
 
-```yaml
+```bash
 # Should remove the test file
 rm -f kenobi.txt
 ```

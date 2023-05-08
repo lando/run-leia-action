@@ -2,7 +2,7 @@
 
 ## Test
 
-```yaml
+```bash
 # Should cat a file
 cat TEST1.md
 ```
