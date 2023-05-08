@@ -71,3 +71,8 @@ runs:
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
+
+    - name: Run Leia tests
+      shell: bash
+      run: |
+        leia --version
