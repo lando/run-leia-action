@@ -81,19 +81,19 @@ runs:
     - name: Run Leia tests
       shell: bash
       run: |
-        # STDIN=
-        # DEBUG=
+        leia --version
 
-        # if [ "${{ inputs.stdin }}" == "true" ]; then
-        #   STDIN="--stdin"
-        # fi
-        # if [ "${{ inputs.debug }}" == "true" ]; then
-        #   STDIN="--debug"
-        # fi
+        OPTS=
+        if [ "${{ inputs.stdin }}" == "true" ]; then
+          OPTS="--stdin"
+        fi
+        if [ "${{ inputs.debug }}" == "true" ]; then
+          OPTS="$OPTS --debug"
+        fi
 
         leia ${{ inputs.leia-test }} \
           --cleanup-header="${{ inputs.cleanup-header }}" \
           --test-header="${{ inputs.test-header }}" \
           --setup-header="${{ inputs.setup-header }}" \
-          --retry=${{ inputs.retry }} $STDIN $DEBUG
+          --retry=${{ inputs.retry }} "$OPTS"
 
