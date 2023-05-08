@@ -66,13 +66,13 @@ runs:
     - name: Ensure Leia is installed
       shell: bash
       run: |
-        if ! leia --version >/dev/null; then
-            echo "::group::Installing Leia @lando/leia@${{ inputs.version }}"
+        if ! leia --version &>/dev/null; then
+            echo "::group::Globally installing @lando/leia@${{ inputs.version }}"
             npm install --global @lando/leia@${{ inputs.version }}
             echo "::endgroup::"
         fi
 
-        if leia --version >/dev/null; then
+        if leia --version &>/dev/null; then
           echo "::notice title=Leia installed!::Using version $(leia --version) at $(which leia)"
         else
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
