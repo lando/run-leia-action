@@ -21,7 +21,7 @@
     "node": ">=16.0.0"
   },
   "devDependencies": {
-    "@lando/leia": "^0.6.4",
+    "@lando/leia": "^0.6.5",
     "version-bump-prompt": "^6.1.0"
   },
   "scripts": {
