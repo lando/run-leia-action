@@ -45,12 +45,10 @@ runs:
     - name: Validate required inputs
       shell: bash
       run: |
-        echo "::group::No test file specified!"
         if [ "${{ inputs.leia-test }}" == "" ]; then
           echo "::error title=leia-test is not set!::You must specify a test file to parse and run."
           exit 10
         fi
-        echo "::endgroup::"
 
     - name: Install node 16
       uses: actions/setup-node@v3
@@ -62,7 +60,7 @@ runs:
       shell: bash
       run: |
         if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
-          npm --global @lando/leia@${{ inputs.version }}
+          npm install --global @lando/leia@${{ inputs.version }}
         fi
 
         if leia --version >/dev/null; then
