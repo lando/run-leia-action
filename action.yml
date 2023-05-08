@@ -67,6 +67,11 @@ runs:
             echo "::endgroup::"
         fi
 
+
+
+    - name: Run Leia tests
+      shell: bash
+      run: |
         echo "$PATH"
         echo "$GITHUB_PATH"
         ls -lsa "$GITHUB_WORKSPACE/node_modules/.bin"
@@ -77,8 +82,4 @@ runs:
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
-
-    - name: Run Leia tests
-      shell: bash
-      run: |
         leia ${{ inputs.leia-test }}
