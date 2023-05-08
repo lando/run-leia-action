@@ -16,11 +16,11 @@ jobs:
           - ubuntu-22.04
           - windows-2022
 
-  steps:
-    - name: Checkout action code
-      uses: actions/checkout@v3
-    - name: Run Leia Action
-      uses: ./
-      id: basic-func-test
-      with:
-        leia-test: tests/TEST1.md
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Run Leia Action
+        uses: ./
+        id: basic-func-test
+        with:
+          leia-test: tests/TEST1.md
