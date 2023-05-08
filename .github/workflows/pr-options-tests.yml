@@ -14,8 +14,7 @@ jobs:
         os:
           - ubuntu-22.04
         leia-test:
-          - tests/TEST1.md
-          - tests/TEST2.md
+          - ./tests/TEST4.md
 
     steps:
       - name: Checkout action code
@@ -23,7 +22,7 @@ jobs:
       - name: Run Leia Action
         uses: ./
         with:
-          leia-test: ./tests/TEST4.md
+          leia-test: ${{ matrix.leia-test }}
           debug: true
           cleanup-header: Clean,Tear,Burn,Destroy
           retry: 0
