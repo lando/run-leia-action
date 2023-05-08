@@ -67,21 +67,22 @@ runs:
       shell: bash
       run: |
         if ! leia --version &>/dev/null; then
-            echo "::group::Globally installing @lando/leia@${{ inputs.version }}"
-            npm install --global @lando/leia@${{ inputs.version }}
-            echo "::endgroup::"
+          echo "::group::Globally installing @lando/leia@${{ inputs.version }}"
+          npm install --global @lando/leia@${{ inputs.version }}
+          echo "::endgroup::"
         fi
 
-        if leia --version &>/dev/null; then
-          echo "::notice title=Leia installed!::Using version $(leia --version) at $(which leia)"
-        else
+        if ! leia --version &>/dev/null; then
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
     - name: Run Leia tests
       shell: bash
       run: |
-        leia --version
+        echo "::group::Leia information"
+          which leia
+          leia --version
+        echo "::endgroup::"
 
         OPTS=
         if [ "${{ inputs.stdin }}" == "true" ]; then
