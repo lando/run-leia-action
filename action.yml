@@ -60,9 +60,9 @@ runs:
       shell: bash
       run: |
         if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
-          ::group::Installing Leia @lando/leia@${{ inputs.version }}
+            echo "::group::Installing Leia @lando/leia@${{ inputs.version }}"
             npm install --global @lando/leia@${{ inputs.version }}
-          ::endgroup::
+            echo "::endgroup::"
         else
           echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
         fi
