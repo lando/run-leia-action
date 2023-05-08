@@ -59,12 +59,12 @@ runs:
     - name: Ensure Leia is installed
       shell: bash
       run: |
-        if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
+        echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
+
+        if ! leia --version >/dev/null; then
             echo "::group::Installing Leia @lando/leia@${{ inputs.version }}"
             npm install --global @lando/leia@${{ inputs.version }}
             echo "::endgroup::"
-        else
-          echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
         fi
 
         echo "$PATH"
