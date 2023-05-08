@@ -81,4 +81,20 @@ runs:
     - name: Run Leia tests
       shell: bash
       run: |
-        leia ${{ inputs.leia-test }}
+        STDIN=
+        DEBUG=
+
+        if [ "${{ inputs.stdin }}" == "true" ]; then
+          STDIN="--stdin"
+        fi
+        if [ "${{ inputs.debug }}" == "true" ]; then
+          STDIN="--debug"
+        fi
+
+        leia \
+          ${{ inputs.leia-test }} \
+          --cleanup-header="${{ inputs.cleanup-header }}" \
+          --test-header="${{ inputs.test-header }}" \
+          --setup-header="${{ inputs.setup-header }}" \
+          --retry=${{ inputs.retry }} $STDIN $DEBUG
+

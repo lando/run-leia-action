@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  run-leia-os-tests:
+  run-leia-files-tests:
     runs-on: ${{ matrix.os }}
     env:
       term: xterm
@@ -24,3 +24,27 @@ jobs:
         uses: ./
         with:
           leia-test: ${{ matrix.leia-test }}
+
+  run-leia-headers-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+        leia-test:
+          - tests/TEST3.md
+
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Run Leia Action
+        uses: ./
+        with:
+          leia-test: ${{ matrix.leia-test }}
+          setup-header: Sign
+          test-header: Seal
+          cleanup-header: Deliver
+          debug: true

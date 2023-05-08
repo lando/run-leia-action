@@ -1,20 +1,20 @@
 # TEST1
 
-## Setup
+## Sign
 
 ```yaml
 # Should create test file
 echo "hellothere" > kenobi.txt
 ```
 
-## Test
+## Seal
 
 ```yaml
 # Should cat the test file
 cat kenobi.txt
 ```
 
-## Clean
+## Deliver
 
 ```yaml
 # Should remove the test file
