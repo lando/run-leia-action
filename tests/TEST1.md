@@ -1,8 +1,8 @@
-# TEST1
+# TEST 1
 
-## Testing
+## Test
 
-```yaml
+```bash
 # Should cat a file
 cat TEST1.md
 ```

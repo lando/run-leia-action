@@ -1,6 +1,8 @@
 # Run Leia Action
 
-This is a GitHub action that allows you to "compile" node projects with [pkg](https://github.com/vercel/pkg). It supports:
+This is a GitHub action that runs [Leia](https://github.com/lando/leia) tests. It will invoke the `leia` in your `package.json` if it can and if it can't it will fallback to a version configurable globally installed version.
+
+It supports:
 
 * All `pkg` supported node versions
 * `x64|amd64` and `aarch64|arm64`
@@ -8,20 +10,15 @@ This is a GitHub action that allows you to "compile" node projects with [pkg](ht
 
 If you are also looking to code sign/notarize the resulting binaries then check out [@lando/code-sign-action](https://github.com/marketplace/actions/code-sign-action).
 
-### Caveats
-
-* If you are looking to "cross compile" binaries across OS **AND** architecture then we recommend you matrix strategy across this actions `os` and `arch` inputs instead of `runs-on`. This is neccessary because `arm64` compilation is currently emulated on Linux only. If you are compiling just on `amd64|x64` then it's _probably_ ok to use `runs-on`.
-* If you are looking to "cross compile" binaries across OS **AND** architecture **AND** code sign/notarize the resulting binaries we recommend you first upload the artifacts and then download them to the `os` you need to do the code signing.
-
-See [Advanced Usage](#advanced-usage) below for some examples of ^.
-
 ## Required Inputs
 
 These keys must be set correctly for the action to work.
 
 | Name | Description | Example Value |
 |---|---|---|
-| `entrypoint` | The binary entrypoint path.  | `bin/entrypoint.js` |
+| `leia-test` | The Leia test file to parse and run.  | `examples/basics/README.md` |
+
+> **NOTE:** If you want to run multiple tests we recommend you set up a [strategy matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs). We do this in our [dogfooded tests](https://github.com/lando/run-leia-action/blob/main/.github/workflows/pr-file-tests.yml).
 
 ## Optional Inputs
 
@@ -29,84 +26,43 @@ These keys are set to sane defaults but can be modified as needed.
 
 | Name | Description | Default | Example |
 |---|---|---|---|
-| `arch` | The architecture to build for. | `amd64` | `x64` \| `amd64` \| `aarch64` \| `arm64` |
-| `config` | The config file to use. | `package.json` | `config.json` |
-| `node-version` | The node version to package with. | `node14` | `node8` \| `node10` \| `node12` \| `node14` \| `node16` \| `latest` |
-| `options` | Additional options and flags to pass into pkg. | `null` | Additional [pkg options](https://github.com/vercel/pkg#usage) |
-| `os` | The operating system to build for. | `${{ runner.os }}` | `linux` \| `macos` \| `win` |
-| `pkg` | The version on @vercel/pkg to use. | `5.8.0` | `latest` |
-| `upload` | Upload the artifacts. Useful if you need to grab them for downstream for things like code signing. | `true` | `false` \| `true` |
-
-## Outputs
-
-```yaml
-outputs:
-  file:
-    description: "The path to the generated binary."
-    value: ${{ steps.pkg-action.outputs.file }}
-  artifact-key:
-    description: "The artifact upload key."
-    value: ${{ steps.pkg-action.outputs.artifact-key }}
-```
+| `debug` | Turn on debug mode. | `false` | `true` |
+| `cleanup-header` | The cleanup headers to parse. | `Clean,Tear,Burn` | `Destroy` |
+| `retry` | The amount of times to retry the test. | `1` | `3` |
+| `setup-header` | The setup headers to parse. | `Start,Setup,This is the dawning` | `So it begins!` |
+| `stdin` | Attach stdin when the tests are run. | `false` | `true` |
+| `test-header` | The test headers to parse. | `Test,Validat,Verif` | `Testing 1 2 3` |
+| `version` | The fallback global version of Leia to install if no local version is detected. | `latest` | `0.6.5` |
 
 ##  Usage
 
 ### Basic Usage
 
 ```yaml
-name: Package into node binary
-uses: lando/pkg-action@v2
-with:
-  entrypoint: bin/cli
+- name: Run Leia Tests
+  uses: lando/run-leia-action@v2
+  with:
+    leia-test: tests/leia-test-1.md
 ```
 
 ### Advanced Usage
 
-**ALL OPTIONS**
-```yaml
-name: Package into node binary
-uses: lando/pkg-action@v2
-with:
-  entrypoint: bin/cli
-  arch: arm64
-  config: package.json
-  node-version: node16
-  options: -C
-  os: win
-  upload: false
-```
+**Everything, everywhere, all at once:**
 
-**CROSS COMPILE ON ALL THE THINGS**
 ```yaml
-runs-on: ubuntu-20.04
-strategy:
-  matrix:
-    arch:
-      - x64
-      - arm64
-    node-version:
-      - node16
-    os:
-      - linux
-      - macos
-      - win
-steps:
-  - name: Package into node binary
-    uses: lando/pkg-action@v2
-    with:
-      entrypoint: bin/cli
-      arch: ${{ matrix.arch }}
-      node-version: ${{ matrix.node-version }}
-      os: ${{ matrix.os }}
+- name: Run Leia Tests
+  uses: lando/run-leia-action@v2
+  with:
+    leia-test: tests/leia-test-1.md
 ```
 
 ## Changelog
 
-We try to log all changes big and small in both [THE CHANGELOG](https://github.com/lando/pkg-action/blob/main/CHANGELOG.md) and the [release notes](https://github.com/lando/pkg-action/releases).
+We try to log all changes big and small in both [THE CHANGELOG](https://github.com/lando/run-leia-action/blob/main/CHANGELOG.md) and the [release notes](https://github.com/lando/run-leia-action/releases).
 
 ## Releasing
 
-1. Correctly bump versions, tag things and push to github
+1. Correctly compile, bump versions, tag things and push to GitHub
 
   ```bash
   yarn release
@@ -116,8 +72,8 @@ We try to log all changes big and small in both [THE CHANGELOG](https://github.c
 
 ## Contributors
 
-<a href="https://github.com/lando/pkg-action/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lando/pkg-action" />
+<a href="https://github.com/lando/run-leia-action/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lando/run-leia-action" />
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).

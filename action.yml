@@ -6,7 +6,7 @@ branding:
 inputs:
   # Required
   leia-test:
-    description: "The Leia test file to run"
+    description: "The Leia test file to parse and run."
     required: true
 
   # Optional
@@ -45,29 +45,56 @@ runs:
     - name: Validate required inputs
       shell: bash
       run: |
-        echo "::group::No test file specified!"
         if [ "${{ inputs.leia-test }}" == "" ]; then
           echo "::error title=leia-test is not set!::You must specify a test file to parse and run."
           exit 10
         fi
-        echo "::endgroup::"
+
+        if [ ! -f "${{ inputs.leia-test }}" ]; then
+          echo "::error title=Could not find ${{ inputs.leia-test }}!::${{ inputs.leia-test }} does not seem to exist."
+          exit 11
+        fi
 
     - name: Install node 16
       uses: actions/setup-node@v3
       with:
         node-version: 16
         cache: npm
-
+    - name: Add local bin to PATH
+      shell: bash
+      run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
     - name: Ensure Leia is installed
       shell: bash
       run: |
-        if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
-          npm --global @lando/leia@${{ inputs.version }}
+        if ! leia --version &>/dev/null; then
+          echo "::group::Globally installing @lando/leia@${{ inputs.version }}"
+          npm install --global @lando/leia@${{ inputs.version }}
+          echo "::endgroup::"
         fi
 
-        if leia --version >/dev/null; then
-          echo "::notice title=Leia installed!::Using version $(leia --version) at $(which leia)"
-        else
+        if ! leia --version &>/dev/null; then
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
+    - name: Run Leia tests
+      shell: bash
+      run: |
+        echo "::group::Leia information"
+          echo "bin: $(which leia)"
+          echo "version: $(leia --version)"
+        echo "::endgroup::"
+
+        OPTS=
+        if [ "${{ inputs.stdin }}" == "true" ]; then
+          OPTS="--stdin"
+        fi
+        if [ "${{ inputs.debug }}" == "true" ]; then
+          OPTS="$OPTS --debug"
+        fi
+
+        leia ${{ inputs.leia-test }} \
+          --setup-header="${{ inputs.setup-header }}" \
+          --test-header="${{ inputs.test-header }}" \
+          --cleanup-header="${{ inputs.cleanup-header }}" \
+          --retry=${{ inputs.retry }} $OPTS
+

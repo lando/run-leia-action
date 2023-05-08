@@ -1,0 +1,39 @@
+name: PR Local Leia Tests
+
+on:
+  pull_request:
+
+jobs:
+  run-leia-local-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-12
+          - ubuntu-22.04
+          - windows-2022
+        node-version:
+          - '16'
+
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Install node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+      - name: Install Yarn dependencies and prepare
+        run: |
+          yarn install --prefer-offline --frozen-lockfile
+          yarn leia --version
+
+
+      - name: Run Leia Action
+        uses: ./
+        with:
+          leia-test: tests/TEST1.md
+          debug: true
