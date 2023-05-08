@@ -1,10 +1,10 @@
-name: PR OS Tests
+name: PR Local Leia Tests
 
 on:
   pull_request:
 
 jobs:
-  run-leia-os-tests:
+  run-leia-local-tests:
     runs-on: ${{ matrix.os }}
     env:
       term: xterm
