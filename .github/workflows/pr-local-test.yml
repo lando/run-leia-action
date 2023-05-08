@@ -36,3 +36,4 @@ jobs:
         uses: ./
         with:
           leia-test: tests/TEST1.md
+          debug: true
