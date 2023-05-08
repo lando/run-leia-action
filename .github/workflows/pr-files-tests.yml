@@ -24,6 +24,7 @@ jobs:
         uses: ./
         with:
           leia-test: ${{ matrix.leia-test }}
+          debug: true
 
   run-leia-headers-tests:
     runs-on: ${{ matrix.os }}
