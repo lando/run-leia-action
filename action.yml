@@ -61,6 +61,8 @@ runs:
       run: |
         if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
           npm install --global @lando/leia@${{ inputs.version }}
+        else
+          # addpath here?
         fi
 
         if leia --version >/dev/null; then
@@ -73,4 +75,4 @@ runs:
     - name: Run Leia tests
       shell: bash
       run: |
-        leia --version
+        leia ${{ inputs.leia-test }}
