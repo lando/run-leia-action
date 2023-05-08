@@ -18,6 +18,10 @@ inputs:
     description: "The cleanup headers to parse."
     required: false
     default: "Clean,Tear,Burn"
+  lagoon-mode:
+    description: "Turn on Lagoon mode."
+    required: false
+    default: false
   retry:
     description: "The amount of times to retry the test."
     required: false
@@ -26,6 +30,10 @@ inputs:
     description: "The setup headers to parse."
     required: false
     default: "Start,Setup,This is the dawning"
+  shell:
+    description: "The shell to use."
+    required: false
+    default: auto
   stdin:
     description: "Attach stdin when the tests are run."
     default: false
@@ -76,6 +84,16 @@ runs:
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
+    - name: Activate Lagoon Mode
+      if: runner.os == 'Linux' && inputs.lagoon-mode == 'true'
+      shell: bash
+      run: |
+        echo "::group::Activating Lagoon Mode"
+        set -x
+        sudo apt-get remove mysql-server --purge
+        sudo apt-get install apparmor-profiles
+        sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+        echo "::endgroup::"
     - name: Run Leia tests
       shell: bash
       run: |
@@ -91,10 +109,12 @@ runs:
         if [ "${{ inputs.debug }}" == "true" ]; then
           OPTS="$OPTS --debug"
         fi
+        if [ "${{ inputs.shell }}" != "auto" ]; then
+          OPTS="$OPTS --shell=${{ inputs.shell }}"
+        fi
 
         leia ${{ inputs.leia-test }} \
           --setup-header="${{ inputs.setup-header }}" \
           --test-header="${{ inputs.test-header }}" \
           --cleanup-header="${{ inputs.cleanup-header }}" \
           --retry=${{ inputs.retry }} $OPTS
-

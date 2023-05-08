@@ -1,0 +1,56 @@
+name: PR Shell Tests
+
+on:
+  pull_request:
+
+jobs:
+  run-leia-files-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            shell: auto
+            leia-test: ./tests/TEST5.md
+          - os: ubuntu-22.04
+            shell: bash
+            leia-test: ./tests/TEST5.md
+          - os: ubuntu-22.04
+            shell: sh
+            leia-test: ./tests/TEST5.md
+
+          - os: macos-12
+            shell: auto
+            leia-test: ./tests/TEST5.md
+          - os: macos-12
+            shell: bash
+            leia-test: ./tests/TEST5.md
+          - os: macos-12
+            shell: zsh
+            leia-test: ./tests/TEST5.md
+          - os: macos-12
+            shell: sh
+            leia-test: ./tests/TEST5.md
+
+          - os: windows-2022
+            shell: auto
+            leia-test: ./tests/TEST5.md
+          - os: windows-2022
+            shell: bash
+            leia-test: ./tests/TEST5.md
+          - os: windows-2022
+            shell: cmd
+            leia-test: ./tests/TEST6.md
+
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Run Leia Action
+        uses: ./
+        with:
+          leia-test: ${{ matrix.leia-test }}
+          shell: ${{ matrix.shell }}
+          debug: true
