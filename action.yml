@@ -80,8 +80,8 @@ runs:
       shell: bash
       run: |
         echo "::group::Leia information"
-          which leia
-          leia --version
+          echo "bin: $(which leia)"
+          echo "version: $(leia --version)"
         echo "::endgroup::"
 
         OPTS=
