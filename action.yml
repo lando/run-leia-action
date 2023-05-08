@@ -1,0 +1,73 @@
+name: "Run Leia Action"
+description: "A GitHub Action for running Leia tests."
+branding:
+  color: purple
+  icon: package
+inputs:
+  # Required
+  leia-test:
+    description: "The Leia test file to run"
+    required: true
+
+  # Optional
+  debug:
+    description: "Turn on debug mode."
+    required: false
+    default: false
+  cleanup-header:
+    description: "The cleanup headers to parse."
+    required: false
+    default: "Clean,Tear,Burn"
+  retry:
+    description: "The amount of times to retry the test."
+    required: false
+    default: 1
+  setup-header:
+    description: "The setup headers to parse."
+    required: false
+    default: "Start,Setup,This is the dawning"
+  stdin:
+    description: "Attach stdin when the tests are run."
+    default: false
+    required: false
+  test-header:
+    description: "The test headers to parse."
+    required: false
+    default: "Test,Validat,Verif"
+  version:
+    description: "The fallback global version of Leia to install if no local version is detected."
+    required: false
+    default: "latest"
+
+runs:
+  using: composite
+  steps:
+    - name: Validate required inputs
+      shell: bash
+      run: |
+        echo "::group::No test file specified!"
+        if [ "${{ inputs.leia-test }}" == "" ]; then
+          echo "::error title=leia-test is not set!::You must specify a test file to parse and run."
+          exit 10
+        fi
+        echo "::endgroup::"
+
+    - name: Install node 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: npm
+
+    - name: Ensure Leia is installed
+      shell: bash
+      run: |
+        if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
+          npm --global @lando/leia@${{ inputs.version }}
+        fi
+
+        if leia --version >/dev/null; then
+          echo "::notice title=Leia installed!::Using version $(leia --version) at $(which leia)"
+        else
+          echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
+          exit 11
+        fi

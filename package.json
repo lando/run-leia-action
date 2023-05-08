@@ -1,0 +1,30 @@
+{
+  "name": "@lando/run-leia-action",
+  "description": "A GitHub Action for running Leia tests.",
+  "version": "2.0.0-beta.0",
+  "author": "Mike Pirog @pirog",
+  "contributors": [
+    {
+      "name": "Mike Pirog",
+      "email": "mike@lando.dev"
+    }
+  ],
+  "license": "GPL-3.0",
+  "repository": "https://github.com/lando/run-leia-action",
+  "bugs": "https://github.com/lando/run-leia-action/issues",
+  "homepage": "https://github.com/lando/run-leia-action",
+  "keywords": [
+    "lando",
+    "Github Actions"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@lando/leia": "^0.6.4",
+    "version-bump-prompt": "^6.1.0"
+  },
+  "scripts": {
+    "release": "bump --tag --all --push package.json && git tag --force --annotate --message 'moving v2 tag' v2 && git push origin v2 --force"
+  }
+}

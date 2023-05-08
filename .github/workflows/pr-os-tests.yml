@@ -1,0 +1,26 @@
+name: PR OS Tests
+
+on:
+  pull_request:
+
+jobs:
+  run-leia-os-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-12
+          - ubuntu-22.04
+          - windows-2022
+
+  steps:
+    - name: Checkout action code
+      uses: actions/checkout@v3
+    - name: Run Leia Action
+      uses: ./
+      id: basic-func-test
+      with:
+        leia-test: tests/TEST1.md
