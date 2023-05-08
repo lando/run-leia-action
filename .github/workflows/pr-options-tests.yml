@@ -1,0 +1,33 @@
+name: PR Options Tests
+
+on:
+  pull_request:
+
+jobs:
+  run-leia-options-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      term: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+        leia-test:
+          - tests/TEST1.md
+          - tests/TEST2.md
+
+    steps:
+      - name: Checkout action code
+        uses: actions/checkout@v3
+      - name: Run Leia Action
+        uses: ./
+        with:
+          leia-test: ./tests/TEST4.md
+          debug: true
+          cleanup-header: Clean,Tear,Burn,Destroy
+          retry: 0
+          setup-header: "Start,Setup,This is the dawning,So it begins!"
+          stdin: true
+          test-header: Test,Validat,Verif,Testing 1 2 3
+          version: "^0.6.5"

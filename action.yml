@@ -6,7 +6,7 @@ branding:
 inputs:
   # Required
   leia-test:
-    description: "The Leia test file to run"
+    description: "The Leia test file to parse and run."
     required: true
 
   # Optional

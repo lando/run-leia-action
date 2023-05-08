@@ -1,20 +1,20 @@
-# TEST 2
+# TEST 4
 
-## Setup
+## So it begins!
 
 ```bash
 # Should create test file
 echo "hellothere" > kenobi.txt
 ```
 
-## Test
+## Testing 1 2 3
 
 ```bash
 # Should cat the test file
 cat kenobi.txt
 ```
 
-## Clean
+## Destroy Everything
 
 ```bash
 # Should remove the test file
