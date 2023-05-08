@@ -14,33 +14,33 @@ jobs:
         include:
           - os: ubuntu-22.04
             shell: auto
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: ubuntu-22.04
             shell: bash
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: ubuntu-22.04
             shell: sh
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
 
           - os: macos-12
             shell: auto
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: macos-12
             shell: bash
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: macos-12
             shell: zsh
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: macos-12
             shell: sh
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
 
           - os: windows-2022
             shell: bash
-            leia-test: ./test/TEST5.md
+            leia-test: ./tests/TEST5.md
           - os: windows-2022
             shell: cmd
-            leia-test: ./test/TEST6.md
+            leia-test: ./tests/TEST6.md
 
     steps:
       - name: Checkout action code
