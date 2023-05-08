@@ -62,7 +62,7 @@ runs:
         if ! "$GITHUB_WORKSPACE/node_modules/.bin/leia" --version >/dev/null; then
           npm install --global @lando/leia@${{ inputs.version }}
         else
-          # addpath here?
+          echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
         fi
 
         if leia --version >/dev/null; then
