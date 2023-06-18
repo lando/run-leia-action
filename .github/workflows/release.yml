@@ -7,17 +7,7 @@ on:
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-    env:
-      term: xterm
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-22.04
-        node-version:
-          - '16'
-
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
