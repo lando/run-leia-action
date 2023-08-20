@@ -18,7 +18,6 @@ These keys are set to sane defaults but can be modified as needed.
 
 | Name | Description | Default | Example |
 |---|---|---|---|
-| `debug` | Turn on debug mode. | `false` | `true` |
 | `cleanup-header` | The cleanup headers to parse. | `Clean,Tear,Burn` | `Destroy` |
 | `retry` | The amount of times to retry the test. | `1` | `3` |
 | `setup-header` | The setup headers to parse. | `Start,Setup,This is the dawning` | `So it begins!` |
