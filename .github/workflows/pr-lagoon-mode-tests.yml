@@ -1,4 +1,4 @@
-name: PR Lagoon Mode Tests
+name: Lagoon Mode Tests
 
 on:
   pull_request:

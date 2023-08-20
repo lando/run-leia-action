@@ -11,7 +11,7 @@ inputs:
 
   # Optional
   debug:
-    description: "Turn on debug mode."
+    description: "Toggle debug output. (deprecated). Use https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/ instead."
     required: false
     default: false
   cleanup-header:
@@ -102,15 +102,24 @@ runs:
           echo "version: $(leia --version)"
         echo "::endgroup::"
 
+        # DO THE OPTS
         OPTS=
+
+        # SHELL
+        if [ "${{ inputs.shell }}" != "auto" ]; then
+          OPTS="$OPTS --shell=${{ inputs.shell }}"
+        fi
+
+        # STDIN
         if [ "${{ inputs.stdin }}" == "true" ]; then
           OPTS="--stdin"
         fi
-        if [ "${{ inputs.debug }}" == "true" ]; then
+
+        # DEBUG
+        if [ "${{ runner.debug }}" == "1" ]; then
           OPTS="$OPTS --debug"
-        fi
-        if [ "${{ inputs.shell }}" != "auto" ]; then
-          OPTS="$OPTS --shell=${{ inputs.shell }}"
+        elif [ "${{ inputs.debug }}" == "true" ]; then
+          OPTS="$OPTS --debug"
         fi
 
         leia ${{ inputs.leia-test }} \

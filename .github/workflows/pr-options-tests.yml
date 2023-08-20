@@ -1,4 +1,4 @@
-name: PR Options Tests
+name: Options Tests
 
 on:
   pull_request:

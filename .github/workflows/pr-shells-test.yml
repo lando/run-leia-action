@@ -1,4 +1,4 @@
-name: PR Shell Tests
+name: Shell Tests
 
 on:
   pull_request:
