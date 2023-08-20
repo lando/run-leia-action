@@ -1,4 +1,4 @@
-name: PR Files Tests
+name: Files Tests
 
 on:
   pull_request:

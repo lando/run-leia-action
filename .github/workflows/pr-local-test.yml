@@ -1,4 +1,4 @@
-name: PR Local Leia Tests
+name: Local Leia Tests
 
 on:
   pull_request:
