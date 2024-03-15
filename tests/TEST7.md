@@ -1,18 +1,18 @@
-# TEST 6
+# TEST 7
 
 ## Testing
 
-```bat
+```powershell
 # Should show envvars
-set
+Get-ChildItem Env:
 
 # Should echo some stuff
 # NOTE: Important note for the markdown file that doesnt need to be in the test description
-echo "some stuff"
+Write-Output "some stuff"
 
 # Should concatenate three commands together
-set TEST=thing
-set | findstr TEST | findstr thing
-set TEST=
+Write-Output "some stuff"
+Write-Output "yup" | Select-String -Pattern "yup"
+Get-ChildItem Env:
 ```
 

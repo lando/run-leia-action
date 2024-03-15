@@ -18,7 +18,7 @@
     "Github Actions"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@lando/leia": "^0.6.5"
