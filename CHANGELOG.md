@@ -1,3 +1,8 @@
+## v2.2.0 - [March 15, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.2.0)
+
+* Deyarned
+* Updated to `node18`
+
 ## v2.1.0 - [August 19, 2023](https://github.com/lando/run-leia-action/releases/tag/v2.1.0)
 
 * Added support for `debug` toggling via https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging

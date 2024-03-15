@@ -22,16 +22,29 @@ jobs:
             shell: sh
             leia-test: ./tests/TEST5.md
 
-          - os: macos-12
+          - os: macos-13
             shell: auto
             leia-test: ./tests/TEST5.md
-          - os: macos-12
+          - os: macos-13
             shell: bash
             leia-test: ./tests/TEST5.md
-          - os: macos-12
+          - os: macos-13
             shell: zsh
             leia-test: ./tests/TEST5.md
-          - os: macos-12
+          - os: macos-13
+            shell: sh
+            leia-test: ./tests/TEST5.md
+
+          - os: macos-14
+            shell: auto
+            leia-test: ./tests/TEST5.md
+          - os: macos-14
+            shell: bash
+            leia-test: ./tests/TEST5.md
+          - os: macos-14
+            shell: zsh
+            leia-test: ./tests/TEST5.md
+          - os: macos-14
             shell: sh
             leia-test: ./tests/TEST5.md
 
@@ -44,6 +57,12 @@ jobs:
           - os: windows-2022
             shell: cmd
             leia-test: ./tests/TEST6.md
+          - os: windows-2022
+            shell: powershell
+            leia-test: ./tests/TEST7.md
+          - os: windows-2022
+            shell: pwsh
+            leia-test: ./tests/TEST7.md
 
     steps:
       - name: Checkout action code
