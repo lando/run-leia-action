@@ -1,7 +1,8 @@
 ## v2.2.0 - [March 15, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.2.0)
 
-* Deyarned
+* Added additional `os` and `shell` tests
 * Updated to `node18`
+* Deyarned
 
 ## v2.1.0 - [August 19, 2023](https://github.com/lando/run-leia-action/releases/tag/v2.1.0)
 
