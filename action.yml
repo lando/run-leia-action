@@ -42,6 +42,10 @@ inputs:
     description: "The test headers to parse."
     required: false
     default: "Test,Validat,Verif"
+  timeout:
+    description: "The amount of time for the test to run before a timeout, in seconds."
+    required: false
+    default: 1800
   version:
     description: "The fallback global version of Leia to install if no local version is detected."
     required: false
@@ -120,11 +124,12 @@ runs:
         echo "::group::Leia information"
           echo "bin: $(which leia)"
           echo "version: $(leia --version)"
-          echo "command: leia ${{ inputs.leia-test }} --setup-header=\"${{ inputs.setup-header }}\" --test-header=\"${{ inputs.test-header }}\" --cleanup-header=\"${{ inputs.cleanup-header }}\" --retry=${{ inputs.retry }} $OPTS"
+          echo "command: leia ${{ inputs.leia-test }} --cleanup-header=\"${{ inputs.cleanup-header }}\" --retry=${{ inputs.retry }} --setup-header=\"${{ inputs.setup-header }}\" --test-header=\"${{ inputs.test-header }}\" --timeout=\"${{ inputs.timeout }}\" $OPTS"
         echo "::endgroup::"
 
         leia ${{ inputs.leia-test }} \
           --setup-header="${{ inputs.setup-header }}" \
           --test-header="${{ inputs.test-header }}" \
           --cleanup-header="${{ inputs.cleanup-header }}" \
+          --timeout="${{ inputs.timeout }}" \
           --retry=${{ inputs.retry }} $OPTS

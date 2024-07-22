@@ -24,6 +24,7 @@ These keys are set to sane defaults but can be modified as needed.
 | `shell` | The shell to use. | `auto` | `bash` |
 | `stdin` | Attach stdin when the tests are run. | `false` | `true` |
 | `test-header` | The test headers to parse. | `Test,Validat,Verif` | `Testing 1 2 3` |
+| `timeout` | The amount of time for the test to run before a timeout, in seconds. | `1800` | `7` |
 | `version` | The fallback global version of Leia to install if no local version is detected. | `latest` | `0.6.5` |
 
 > **NOTE:** Please read Leia's [shell considerations](https://github.com/lando/leia#shell-considerations) for details on how `shell: auto` works.
@@ -55,6 +56,7 @@ These keys are set to sane defaults but can be modified as needed.
     shell: bash
     stdin: true
     test-header: Test
+    timeout: 5
     version: "^0.6.5"
 ```
 
