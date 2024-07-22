@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v2.3.0 - [July 22, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.3.0)
+
 * Added support for new `leia` `--timeout` option
 
 ## v2.2.1 - [July 22, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.2.1)
