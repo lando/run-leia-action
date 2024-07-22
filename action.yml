@@ -129,7 +129,7 @@ runs:
 
         leia ${{ inputs.leia-test }} \
           --cleanup-header="${{ inputs.cleanup-header }}" \
-          --retry=${{ inputs.retry }} $OPTS \
+          --retry=${{ inputs.retry }} \
           --setup-header="${{ inputs.setup-header }}" \
           --timeout="${{ inputs.timeout }}" \
-          --test-header="${{ inputs.test-header }}"
+          --test-header="${{ inputs.test-header }}" $OPTS
