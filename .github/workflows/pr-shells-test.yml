@@ -73,3 +73,4 @@ jobs:
           leia-test: ${{ matrix.leia-test }}
           shell: ${{ matrix.shell }}
           debug: true
+          stdin: true

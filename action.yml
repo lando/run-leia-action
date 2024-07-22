@@ -97,11 +97,6 @@ runs:
     - name: Run Leia tests
       shell: bash
       run: |
-        echo "::group::Leia information"
-          echo "bin: $(which leia)"
-          echo "version: $(leia --version)"
-        echo "::endgroup::"
-
         # DO THE OPTS
         OPTS=
 
@@ -121,6 +116,12 @@ runs:
         elif [ "${{ inputs.debug }}" == "true" ]; then
           OPTS="$OPTS --debug"
         fi
+
+        echo "::group::Leia information"
+          echo "bin: $(which leia)"
+          echo "version: $(leia --version)"
+          echo "command: leia ${{ inputs.leia-test }} --setup-header=\"${{ inputs.setup-header }}\" --test-header=\"${{ inputs.test-header }}\" --cleanup-header=\"${{ inputs.cleanup-header }}\" --retry=${{ inputs.retry }} $OPTS"
+        echo "::endgroup::"
 
         leia ${{ inputs.leia-test }} \
           --setup-header="${{ inputs.setup-header }}" \

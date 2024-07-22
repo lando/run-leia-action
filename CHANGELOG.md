@@ -1,3 +1,7 @@
+## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
+
+* Fixed bug causing `stdin: true` to blow away the `shell` selection
+
 ## v2.2.0 - [March 15, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.2.0)
 
 * Added additional `os` and `shell` tests
