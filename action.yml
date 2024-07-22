@@ -128,8 +128,8 @@ runs:
         echo "::endgroup::"
 
         leia ${{ inputs.leia-test }} \
-          --cleanup-header="${{ inputs.cleanup-header }}" \
-          --retry=${{ inputs.retry }} \
           --setup-header="${{ inputs.setup-header }}" \
+          --test-header="${{ inputs.test-header }}" \
+          --cleanup-header="${{ inputs.cleanup-header }}" \
           --timeout="${{ inputs.timeout }}" \
-          --test-header="${{ inputs.test-header }}" $OPTS
+          --retry=${{ inputs.retry }} $OPTS

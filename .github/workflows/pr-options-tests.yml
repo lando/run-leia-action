@@ -26,7 +26,7 @@ jobs:
           debug: true
           cleanup-header: Clean,Tear,Burn,Destroy
           retry: 0
-          setup-header: Start,Setup,This is the dawning,So it begins!
+          setup-header: "Start,Setup,This is the dawning,So it begins!"
           stdin: true
           test-header: Test,Validat,Verif,Testing 1 2 3
           version: "^0.6.5"
