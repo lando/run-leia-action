@@ -107,7 +107,7 @@ runs:
 
         # STDIN
         if [ "${{ inputs.stdin }}" == "true" ]; then
-          OPTS="--stdin"
+          OPTS="$OPTS --stdin"
         fi
 
         # DEBUG
