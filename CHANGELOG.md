@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v2.2.1 - [July 22, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.2.1)
+
 * Fixed bug causing `stdin: true` to blow away the `shell` selection
 * Updated underlying composite `@actions` to `v4` as needed
 

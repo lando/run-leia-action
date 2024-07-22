@@ -1,7 +1,7 @@
 {
   "name": "@lando/run-leia-action",
   "description": "A GitHub Action for running Leia tests.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "Mike Pirog @pirog",
   "contributors": [
     {
