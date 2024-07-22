@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Export formatted release date
         run: echo "RELEASE_DATE=$(date -d "${{ github.event.release.published_at }}" "+%B %e, %Y" | tr -s ' ')" >> $GITHUB_ENV
       - name: Prepare release
