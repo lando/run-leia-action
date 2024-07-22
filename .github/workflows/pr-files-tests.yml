@@ -49,3 +49,4 @@ jobs:
           test-header: Seal
           cleanup-header: Deliver
           debug: true
+          timeout: 100
