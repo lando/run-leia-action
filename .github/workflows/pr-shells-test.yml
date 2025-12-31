@@ -12,26 +12,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             shell: auto
             leia-test: ./tests/TEST5.md
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             shell: bash
             leia-test: ./tests/TEST5.md
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             shell: sh
             leia-test: ./tests/TEST5.md
 
-          - os: macos-13
+          - os: macos-15
             shell: auto
             leia-test: ./tests/TEST5.md
-          - os: macos-13
+          - os: macos-15
             shell: bash
             leia-test: ./tests/TEST5.md
-          - os: macos-13
+          - os: macos-15
             shell: zsh
             leia-test: ./tests/TEST5.md
-          - os: macos-13
+          - os: macos-15
             shell: sh
             leia-test: ./tests/TEST5.md
 
