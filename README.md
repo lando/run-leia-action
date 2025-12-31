@@ -26,6 +26,8 @@ These keys are set to sane defaults but can be modified as needed.
 | `test-header` | The test headers to parse. | `Test,Validat,Verif` | `Testing 1 2 3` |
 | `timeout` | The amount of time for the test to run before a timeout, in seconds. | `1800` | `7` |
 | `version` | The fallback global version of Leia to install if no local version is detected. | `latest` | `0.6.5` |
+| `runtime` | Runtime to use for running leia. | `node` | `bun` |
+| `bun-version` | The version of Bun to use when runtime is bun. | `latest` | `1.3.5` |
 
 > **NOTE:** Please read Leia's [shell considerations](https://github.com/lando/leia#shell-considerations) for details on how `shell: auto` works.
 
@@ -58,6 +60,17 @@ These keys are set to sane defaults but can be modified as needed.
     test-header: Test
     timeout: 5
     version: "^0.6.5"
+```
+
+**Using Bun runtime:**
+
+```yaml
+- name: Run Leia Tests
+  uses: lando/run-leia-action@v2
+  with:
+    leia-test: tests/leia-test-1.md
+    runtime: bun
+    bun-version: latest
 ```
 
 ## Changelog

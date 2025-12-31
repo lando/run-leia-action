@@ -50,6 +50,14 @@ inputs:
     description: "The fallback global version of Leia to install if no local version is detected."
     required: false
     default: "latest"
+  runtime:
+    description: "Runtime to use: node or bun"
+    required: false
+    default: "node"
+  bun-version:
+    description: "The version of Bun to use when runtime is bun."
+    required: false
+    default: "latest"
 
 runs:
   using: composite
@@ -68,14 +76,17 @@ runs:
         fi
 
     - name: Install node
+      if: inputs.runtime != 'bun'
       uses: actions/setup-node@v4
       with:
         node-version: 18
         cache: npm
     - name: Add local bin to PATH
+      if: inputs.runtime != 'bun'
       shell: bash
       run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> $GITHUB_PATH
     - name: Ensure Leia is installed
+      if: inputs.runtime != 'bun'
       shell: bash
       run: |
         if ! leia --version &>/dev/null; then
@@ -88,6 +99,11 @@ runs:
           echo "::error title=Cannot run leia::Cannot seem to find the Leia binary!"
           exit 11
         fi
+    - name: Install bun
+      if: inputs.runtime == 'bun'
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
     - name: Activate Lagoon Mode
       if: runner.os == 'Linux' && inputs.lagoon-mode == 'true'
       shell: bash
@@ -101,6 +117,13 @@ runs:
     - name: Run Leia tests
       shell: bash
       run: |
+        # SET LEIA COMMAND BASED ON RUNTIME
+        if [ "${{ inputs.runtime }}" == "bun" ]; then
+          LEIA_CMD="bunx @lando/leia@${{ inputs.version }}"
+        else
+          LEIA_CMD="leia"
+        fi
+
         # DO THE OPTS
         OPTS=
 
@@ -122,12 +145,17 @@ runs:
         fi
 
         echo "::group::Leia information"
-          echo "bin: $(which leia)"
-          echo "version: $(leia --version)"
-          echo "command: leia ${{ inputs.leia-test }} --cleanup-header=\"${{ inputs.cleanup-header }}\" --retry=${{ inputs.retry }} --setup-header=\"${{ inputs.setup-header }}\" --test-header=\"${{ inputs.test-header }}\" --timeout=\"${{ inputs.timeout }}\" $OPTS"
+          if [ "${{ inputs.runtime }}" == "bun" ]; then
+            echo "bin: $(which bun)"
+            echo "version: $(bun --version)"
+          else
+            echo "bin: $(which leia)"
+            echo "version: $(leia --version)"
+          fi
+          echo "command: $LEIA_CMD ${{ inputs.leia-test }} --cleanup-header=\"${{ inputs.cleanup-header }}\" --retry=${{ inputs.retry }} --setup-header=\"${{ inputs.setup-header }}\" --test-header=\"${{ inputs.test-header }}\" --timeout=\"${{ inputs.timeout }}\" $OPTS"
         echo "::endgroup::"
 
-        leia ${{ inputs.leia-test }} \
+        $LEIA_CMD ${{ inputs.leia-test }} \
           --setup-header="${{ inputs.setup-header }}" \
           --test-header="${{ inputs.test-header }}" \
           --cleanup-header="${{ inputs.cleanup-header }}" \

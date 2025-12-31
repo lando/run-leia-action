@@ -1,5 +1,8 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added support for `runtime` input to select between `node` and `bun` runtimes
+* Added support for `bun-version` input to specify the version of Bun to use
+
 ## v2.3.0 - [July 22, 2024](https://github.com/lando/run-leia-action/releases/tag/v2.3.0)
 
 * Added support for new `leia` `--timeout` option

@@ -12,9 +12,22 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
-        leia-test:
-          - ./tests/TEST4.md
+          - ubuntu-24.04
+        with:
+          - leia-test: ./tests/TEST4.md
+            debug: true
+            cleanup-header: Clean,Tear,Burn,Destroy
+            retry: 0
+            setup-header: "Start,Setup,This is the dawning,So it begins!"
+            stdin: true
+            test-header: Test,Validat,Verif,Testing 1 2 3
+            version: "^0.6.5"
+          - leia-test: ./tests/TEST1.md
+            runtime: node
+          - leia-test: ./tests/TEST8.md
+            runtime: bun
+            bun-version: "1.3.5"
+
 
     steps:
       - name: Checkout action code
@@ -22,11 +35,4 @@ jobs:
       - name: Run Leia Action
         uses: ./
         with:
-          leia-test: ${{ matrix.leia-test }}
-          debug: true
-          cleanup-header: Clean,Tear,Burn,Destroy
-          retry: 0
-          setup-header: "Start,Setup,This is the dawning,So it begins!"
-          stdin: true
-          test-header: Test,Validat,Verif,Testing 1 2 3
-          version: "^0.6.5"
+          ${{ matrix.with }}
